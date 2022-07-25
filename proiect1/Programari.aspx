@@ -1,0 +1,499 @@
+﻿<%@ Page Title="About" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Programari.aspx.cs" Inherits="proiect1.About" %>
+
+<asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"/>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- jQuery library -->
+   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css"/>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" />
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+
+
+     <section>
+            
+            <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-tools"><button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse"><i class="fas fa-minus"></i></button></div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-4 col-md-4">
+                                <div class="form-group">
+                                        <input type="text" class="form-control" data-target="#dataLista" data-inputmask-alias="datetime" id="txtData" />         
+	                             </div>
+                            </div>                      
+                            <div class="col-sm-4 col-md-4">
+                                   <div class="form-group">
+                                    <button type="button" class="btn btn-block btn-primary" onclick="loadProgramari()">Reincarca</button>
+                                </div>
+                                </div>
+                                <div class="col-sm-4 col-md-4">
+                                   <div class="form-group">
+                                <button type="button" class="btn btn-block btn-primary" onclick="adaugaProgramare()">Adauga</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <!-- Default box -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="col-sm-4 col-md-4">     
+                        </div>  
+                        <div class="col-sm-4 col-md-4">
+                        <h3 class="card-title">Lista Programari</h3>
+
+                            </div>
+                                                
+                        <div class="card-tools"><button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse"><i class="fas fa-minus"></i></button></div>
+                    </div>
+                    <div class="card-body" id="listaRaport"></div>
+                    <!-- /.card-body -->
+                    <div class="card-footer"></div>
+                    <!-- /.card-footer-->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+
+         <div class="modal fade" id="modal-form-prog">  
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="overlay"  id="modal-form-perioadaindisp-overlay">
+                        <i class="fas fa-2x fa-sync fa-spin"></i>
+                    </div>
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modal-form-programari-title">Editare Programari</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="txtDenNume">Nume</label>
+                            <input type="text" class="form-control form-control-border" id="txtNume" data-mask id="txtNume"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtDenPrenume">Prenume</label>
+                            <input type="text" class="form-control form-control-border" id="txtPrenume" autocomplete="off" data-mask id="txtPrenume"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtDenMail">Mail</label>
+                            <input type="text" class="form-control form-control-border" id="txtMail" autocomplete="off" data-mask id="txtMail"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtDenTelefon">Telefon</label>
+                            <input type="text" class="form-control form-control-border" id="txtTelefon" autocomplete="off" data-mask id="txtTelefon" />
+                        </div>
+                        <div class="form-group">
+                            <label for="txtDenServiciu">Serviciu</label>
+                            <input type="text" class="form-control form-control-border" id="txtServiciu" autocomplete="off" data-mask id="txtServiciu"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtDenData">Data</label> <!-- datapiker -->
+                            <input type="text" class="form-control datetimepicker" data-target="#dataLista" data-inputmask-alias="datetime" id="txtDataForm" />                                       
+                        </div>
+                        <input type="hidden" id="hIdProg" />
+                        <input type="hidden" id="hIdClient"  />
+                    </div>
+                       
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Renunta</button>
+                        <button type="button" class="btn btn-success" onclick="SaveProgramare()">Salveaza</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+         
+            <script type="text/javascript">
+                
+                $(document).ready(function () {                   
+                    //Date picker
+                    $(function () {
+                        $('#txtData').datepicker();
+                    });
+                    $('#dataLista').datepicker({
+                        format: 'MM/DD/YYYY'
+                    });
+                    $(function () {
+                        $('#txtData').val(getTodayDate());
+                        loadProgramari();
+                    });
+                    
+                    
+                });
+
+                function loadProgramari()
+                {
+                    console.log(txtData.value)
+                    listaRaport.innerHTML = "";
+                    var data = document.getElementById("txtData");
+                    console.log(data.value)
+                    var paramData = {
+                        data: data.value,
+                    };
+
+                    $.ajax({
+                        type: "POST",
+                        url: "Programari.aspx/GetProgramari",
+                        data: JSON.stringify(paramData),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        async: true,
+                        cache: false,
+                        success: function (response) {
+                            var rasp = response.d;
+                            
+                            if (rasp) 
+                            {
+
+                            
+                                var rv = rasp.data;
+                                if (rv.length > 0)
+                                {
+                                    var tbl = document.createElement("table");
+                                    tbl.setAttribute("id", "tblRaport");
+                                    tbl.setAttribute("class", "table table-bordered table-striped");
+                                    listaRaport.appendChild(tbl);
+
+                                    var thead = document.createElement("thead");
+                                    tbl.appendChild(thead);
+
+                                    var tr = document.createElement("tr");
+                                    tr.setAttribute("style", "background-color: #0068b1; color: #FFFFFF; font-weight: bold;");
+                                    thead.appendChild(tr);
+
+                                    var th = document.createElement("th");
+                                    th.innerHTML = "Prenume";
+                                    tr.appendChild(th);
+
+                                    th = document.createElement("th");
+                                    th.innerHTML = "Nume";
+                                    tr.appendChild(th);
+
+                                    th = document.createElement("th");
+                                    th.innerHTML = "Serviciu";
+                                    tr.appendChild(th);
+
+                                    th = document.createElement("th");
+                                    th.innerHTML = "Telefon";
+                                    tr.appendChild(th);
+
+                                    th = document.createElement("th");
+                                    th.innerHTML = "Mail";
+                                    tr.appendChild(th);
+
+                                    th = document.createElement("th");
+                                    th.innerHTML = "Data";
+                                    tr.appendChild(th);  
+
+                                    th = document.createElement("th");
+                                    th.innerHTML = "Editare";
+                                    tr.appendChild(th);
+
+                                    th = document.createElement("th");
+                                    th.innerHTML = "Stergere";
+                                    tr.appendChild(th);
+
+                                    var tbody = document.createElement("tbody");
+                                    tbl.appendChild(tbody);
+
+                                    for (var i = 0; i < rv.length; i++) {
+                                        var rez = rv[i];
+
+                                        tr = document.createElement("tr");
+                                        tbody.appendChild(tr);
+
+
+                                        td = document.createElement("td");
+                                        td.innerHTML = rez.Prenume;
+                                        tr.appendChild(td);
+
+                                        td = document.createElement("td");
+                                        td.innerHTML = rez.Nume;
+                                        tr.appendChild(td);
+
+                                        td = document.createElement("td");
+                                        td.innerHTML = rez.Serviciu;
+                                        tr.appendChild(td);
+
+                                        td = document.createElement("td");
+                                        td.innerHTML = rez.Telefon;
+                                        tr.appendChild(td);
+
+                                        td = document.createElement("td");
+                                        td.innerHTML = rez.Mail;
+                                        tr.appendChild(td);
+
+                                        td = document.createElement("td");
+                                        td.innerHTML = rez.data_proxy;
+                                        tr.appendChild(td); 
+
+                                        td = document.createElement("td");
+                                        td.setAttribute("style", "text-align: center;");
+                                        tr.appendChild(td);
+
+                                        var aEdit = document.createElement("a");
+                                        aEdit.setAttribute("style", "cursor: pointer");
+                                        aEdit.setAttribute("data-idProg", rez.Id);
+                                        aEdit.setAttribute("data-idClient", rez.IdClient)
+                                        aEdit.setAttribute("onclick", "OpenFormProgramari(this)");
+                                        td.appendChild(aEdit)
+
+                                        var iEdit = document.createElement("i");
+                                        iEdit.textContent = "create";
+                                        iEdit.setAttribute("class", "material-icons");
+                                        aEdit.appendChild(iEdit);
+                                        
+                                        td = document.createElement("td");
+                                        td.setAttribute("style", "text-align: center;");
+                                        tr.appendChild(td);
+
+                                        var aDel = document.createElement("a");
+                                        aDel.setAttribute("style", "cursor: pointer");
+                                        aDel.setAttribute("data-idProg", rez.Id);
+                                        aDel.setAttribute("onclick", "AnulareProg(this)");
+                                        td.appendChild(aDel)
+                                        var iDel = document.createElement("i");
+                                        iDel.textContent = "delete";
+                                        iDel.setAttribute("class", "material-icons");
+                                        aDel.appendChild(iDel);
+
+                                       
+                                    }
+                                }
+                            }
+                        },
+                        error: function (jqXHR, exception) {
+                            console.log("eroare");
+                          
+                           // ajaxError(jqXHR, exception);
+                        }
+                    });
+
+                }
+
+                function getTodayDate() {
+                    var today = new Date();
+                    var dd = today.getDate();
+                    var mm = today.getMonth() + 1; //January is 0!
+                    var yyyy = today.getFullYear();
+                    if (dd < 10) {
+                        dd = '0' + dd
+                    }
+                    if (mm < 10) {
+                        mm = '0' + mm
+                    }
+
+                    today = mm + '/' + dd + '/' + yyyy;
+                    return today;
+                }
+
+                function AnulareProg(thing) {
+                    var idProg = thing.getAttribute("data-idProg");
+                    var paramData = {
+                        data: idProg,
+                    };
+                    console.log(paramData.valueOf(0));
+                    $.ajax({
+                        type: "POST",
+                        url: "Programari.aspx/DeleteProgramare",
+                        data: JSON.stringify(paramData.valueOf(0)),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        async: true,
+                        cache: false,
+                        success: function (response) {
+                            var rv = response.d;
+
+                            if (rv.EsteOK) {                               
+                                loadProgramari();
+                            } else {
+                                
+                            }
+                            loadProgramari();
+                        },
+                        error: function (jqXHR, exception) {
+                            console.log("eroare");
+                        }
+                    });
+
+                }
+
+                function OpenFormProgramari(thing) {
+                    var idProg = thing.getAttribute("data-idProg");
+                    var idClient = thing.getAttribute("data-idClient");
+
+                    var txtNume = document.getElementById("txtNume");
+                    var txtPrenume = document.getElementById("txtPrenume");
+                    var txtMail = document.getElementById("txtMail");
+                    var txtTelefon = document.getElementById("txtTelefon");
+                    var txtServiciu = document.getElementById("txtServiciu");
+                    var hIdProg = document.getElementById("hIdProg");
+                    var hIdClient = document.getElementById("hIdClient");
+                    
+                    txtNume.value = "";
+                    txtPrenume.value = "";
+                    txtMail.value = "";
+                    txtTelefon.value = "";
+                    txtServiciu.value = "";
+                    txtDataForm.value = "";
+                    hIdClient.value = idClient;
+                    hIdProg.value = idProg;
+                    console.log(idClient)
+
+                    var paramData = {
+                        data: idProg
+                    };
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: "Programari.aspx/GetProgramare",
+                        data: JSON.stringify(paramData.valueOf(0)),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        async: true,
+                        cache: false,
+                        success: function (response) {
+                            var rv = response.d;
+                            var rez = rv.data;
+                            if (rv) {
+                                $('#txtDataForm').val(rez.data_proxy);
+                                txtNume.value = rez.Nume;
+                                txtPrenume.value = rez.Prenume;
+                                txtMail.value = rez.Mail;
+                                txtTelefon.value = rez.Telefon;
+                                txtServiciu.value = rez.Serviciu;
+                                $('#modal-form-prog').modal('show');
+
+                               
+                            } else {
+                                console.log("eroare");
+                            }
+                        },
+                        error: function (jqXHR, exception) {
+                            //console.log("eroare");
+                        }
+                    });
+
+                }
+
+                function SaveProgramare() {
+
+                    var txtNume = document.getElementById("txtNume");
+                    var txtPrenume = document.getElementById("txtPrenume");
+                    var txtMail = document.getElementById("txtMail");
+                    var txtTelefon = document.getElementById("txtTelefon");
+                    var txtServiciu = document.getElementById("txtServiciu");
+                    var hIdProg = document.getElementById("hIdProg");
+                    var idClient = document.getElementById("hIdClient");
+                    var txtData = document.getElementById("txtDataForm");
+
+
+                    var paramData = {
+                        Id: hIdProg.value,
+                        Nume: txtNume.value,
+                        Prenume: txtPrenume.value,
+                        Mail: txtMail.value,
+                        Telefon: txtTelefon.value,
+                        Serviciu: txtServiciu.value,
+                        Data: txtData.value,
+                        idClient: idClient.value
+                    };
+                    console.log(paramData)
+                    $.ajax({
+                        type: "POST",
+                        url: "Programari.aspx/ProgramareAM",
+                        data: JSON.stringify(paramData.valueOf(0)),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        async: true,
+                        cache: false,
+                        success: function (response) {
+                            var rv = response.d;
+
+                            if (rv) {
+                                $('#modal-form-prog').modal('hide');
+                                loadProgramari();
+                            } else {
+                                console.log("Eroare");
+                            }
+                            ;
+                        },
+                        error: function (jqXHR, exception) {
+                            console.log("Eroare");
+                        }
+                    });
+
+                }
+
+                function adaugaProgramare() {
+
+                    var txtNume = document.getElementById("txtNume");
+                    var txtPrenume = document.getElementById("txtPrenume");
+                    var txtMail = document.getElementById("txtMail");
+                    var txtTelefon = document.getElementById("txtTelefon");
+                    var txtServiciu = document.getElementById("txtServiciu");
+                    var hIdProg = document.getElementById("hIdProg");
+                    var hIdClient = document.getElementById("hIdClient");
+
+                    var txtData = document.getElementById("txtDataForm");
+                    txtNume.value = "";
+                    txtPrenume.value = "";
+                    txtMail.value = "";
+                    txtTelefon.value = "";
+                    txtServiciu.value = "";
+                    txtData.value = "";
+                    hIdProg.value = "0";
+                    hIdClient.value = "0";
+                    $('#modal-form-prog').modal('show');
+
+
+
+                    
+                   
+
+                }
+            </script>
+        </section>
+</asp:Content>
